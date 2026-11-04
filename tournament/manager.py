@@ -1,9 +1,6 @@
-from  projects_week2.tournament.validation import *
-from projects_week2.tournament.arr_teams import teams
+from .validation import *
 
 
-
-#צריך בדיקה שלא יהיה 2 קבוצות עם אותו שם וid
 
 
 
@@ -95,3 +92,14 @@ def sorted_list(num):
     return table
 
 
+
+def calculate_success():
+    success_rate = None
+    name = input("enter group name: ")
+    while not is_name_exists(name):
+        print("try again")
+        name = input("enter group name: ")
+    for team in teams:
+        if team["name"] == name:
+            success_rate = 100 * (int(team["points"]) / (3 * int(team["played"])))
+    return success_rate

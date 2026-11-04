@@ -1,4 +1,4 @@
-from projects_week2.tournament.arr_teams import teams
+from .arr_teams import teams
 
 #המרה הstr לint
 def str_to_int(string):

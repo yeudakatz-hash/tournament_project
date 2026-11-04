@@ -1,13 +1,28 @@
-from projects_week2.tournament.printer import print_menu, sort_menu
-from projects_week2.tournament.validation import *
-from projects_week2.tournament.manager import add_new_team, play, sorted_list
-from projects_week2.tournament.arr_teams import teams
+from tournament.printer import print_menu, sort_menu
+from tournament.manager import *
+import logging
+
+
+
+
+
+logging.basicConfig(
+    filename="tournament.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    encoding="utf-8"
+)
+
+
+
+
 
 
 while True:
     choose = print_menu()
     if not check_choice(choose):
         print("error: try again\n")
+        logging.warning(f"Invalid menu choice: {choose}")
         continue
 
     if choose == "1":
@@ -25,30 +40,47 @@ while True:
 
 
     elif choose == "4":
+        pass
+
+
+    elif choose == "5":
         sort_by = sort_menu()
         li = sorted_list(sort_by)
         for l in li:
             print(l)
 
 
-    elif choose == "5":
-        pass
-
-
     elif choose == "6":
-        pass
+        for team in teams:
+            if team["played"] > 0:
+                print(sorted_list(1)[0])
+            else:
+                print("No games yet")
 
 
     elif choose == "7":
-        pass
+        first_place = sorted_list(1)
+        print(first_place[0])
+        all_teams = sorted_list(1)
+        for team in all_teams(range(1 , len(all_teams))):
+            if team["goals"] == first_place["goals"]:
+                print(team["name"])
+
 
 
     elif choose == "8":
-        pass
+        for team in teams:
+            if team["played"] > 0:
+                success = calculate_success()
+                print(success, "%")
+        print("no games yet.")
 
 
     elif choose == "9":
-        pass
+        for team in teams:
+            if int(team["played"]) > 0 and int(team["wins"]) == 0:
+                print(team["name"] , team["played"] , team["points"])
+
 
 
     elif choose == "10":
