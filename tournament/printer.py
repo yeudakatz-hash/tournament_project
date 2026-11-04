@@ -16,6 +16,16 @@ def print_menu():
     """)
 
 
+def sort_menu():
+    return input("""
+    1. sort by points
+    2. sort by goals
+    3. sort by difference
+    4. sort by name
+    0. main menu
+    """)
+
+
 
 
 

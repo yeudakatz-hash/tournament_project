@@ -10,18 +10,26 @@ from projects_week2.tournament.arr_teams import teams
 #מקבל id ןמעביר הלאה לבדיקה
 def get_id(action):
     id_team = input("Enter ID team: ")
-    while check_id(id_team):
-        print("Invalid ID. Must be a positive number.")
-        id_team = input("Enter id team: ")
-        if action == "add":
-            while not is_id_exists(id_team):
+    if action == "add":
+        while is_id_exists(id_team) or not check_id(id_team):
+            while is_id_exists(id_team):
                 print("this id is taken, enter another id: ")
                 id_team = input("Enter ID team")
-        if action == "check":
-            while is_id_exists(id_team):
+            while not check_id(id_team):
+                print("Invalid ID. Must be a positive number.")
+                id_team = input("Enter id team: ")
+
+
+    elif action == "check":
+        while not is_id_exists(id_team) or not check_id(id_team):
+            while not is_id_exists(id_team):
                 print("This ID not found: ")
                 id_team = input("Enter ID team")
-    return int(id_team)
+            while check_id(id_team):
+                print("Invalid ID. Must be a positive number.")
+                id_team = input("Enter id team: ")
+
+    return str_to_int(id_team)
 
 
 
@@ -49,9 +57,12 @@ def play():
     while not check_goals(goals_team2):
         print("Illegal goals")
         goals_team2 = input("Enter num of goals of team2: ")
+    update_goals(team1, team2 , goals_team1, goals_team2)
+
+    return teams
 
 
-    # return team1 , team2 , goals_team1 , goals_team2
+
 
 
 
@@ -64,20 +75,23 @@ def add_new_team():
         "wins": 0,
         "draws" : 0,
         "goals for" : 0,
-        "goals_against" : 0,
+        "goals against" : 0,
         "points" : 0
     }
     return team
 
 
-def add_new_play():
-    team1 = get_id("check")
-    team2 = get_id("check")
-    while team1 == team2:
-        print("enter again id ")
-        team1 = get_id()
-        team2 = get_id()
-    return team1, team2
-
+def sorted_list(num):
+    table = None
+    num = str_to_int(num)
+    if num == 1:
+        table = sorted(teams, key= lambda t: t["points"], reverse=True)
+    elif num == 2:
+        table = sorted(teams, key= lambda t: t["goals"], reverse=True)
+    elif num == 3:
+        table = sorted(teams, key= lambda t: t["goals for"] - t["goals against"], reverse=True)
+    elif num == 4:
+        table = sorted(teams, key= lambda t: t["name"])
+    return table
 
 

@@ -1,8 +1,7 @@
-from projects_week2.tournament.printer import print_menu
+from projects_week2.tournament.printer import print_menu, sort_menu
 from projects_week2.tournament.validation import *
-from projects_week2.tournament.manager import add_new_team, play
+from projects_week2.tournament.manager import add_new_team, play, sorted_list
 from projects_week2.tournament.arr_teams import teams
-
 
 
 while True:
@@ -22,11 +21,14 @@ while True:
             print("The list of teams is empty. ")
 
     elif choose == "3":
-        print(play())
+        play()
 
 
     elif choose == "4":
-        pass
+        sort_by = sort_menu()
+        li = sorted_list(sort_by)
+        for l in li:
+            print(l)
 
 
     elif choose == "5":
